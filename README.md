@@ -20,7 +20,9 @@ terraform apply
 ```
 
 ••• Terraform keep track things had change or not !!
+
 ••• ``` Terraform plan ``` to contact aws.
+
 ••• ``` Terraform apply ``` to apply on aws.
 
 An AMI is a blue print (snap shot) of an instance:
