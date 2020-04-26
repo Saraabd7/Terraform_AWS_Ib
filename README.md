@@ -28,6 +28,11 @@ terraform apply
 ••• ``` Terraform apply ``` to apply on aws >> applies and creates the resources specified in the main.tf file in the defined infrastructure.
 
 ••• ```Terraform refresh ``` used when the terraform.rfstate file becomes out of sync.
+
+
+••• ```Terraform destroy ```  To destroy all resources created by terraform.
+
+
 An AMI is a blue print (snap shot) of an instance:
  - The operating system
 
@@ -43,13 +48,25 @@ An AMI is a blue print (snap shot) of an instance:
  In our stack we have:
 
 
+### Running scripts
 
-• Chef is configuration management tool and sets up the machine and can provision it (e.g recipes, metadata, berks_cookbook, unit and spec tests, kitchen.yml and more)
+ ••scripts
 
+ - To run scripts: scripts and, create a scripts file in that repo. The filename would be {name}.sh.tpl.
 
-• Packer  creates an immutable image of that machine
+ ```
+ data "template_file" "init" {
+   template = "${file("${path.module}/init.tpl")}"
+   vars = {
+     consul_address = "${aws_instance.consul.private_ip}"
+   }
+ }
 
+ ```
 
+## Remote Exec
+
+remote exec which allows to run inline commands but will need to move over key pair to allow AWS to use it to ssh into the machine to run the command. provisioner "remote-exec" should assign self.public_ip to host inside connection block.
 
 
 Using the key_name to specified and ip generated from the instance enter the machine by running the following code into the command line: ```ssh -i ~/.ssh/key_name ubuntu@xxx.xxx.xxx.xxx ```

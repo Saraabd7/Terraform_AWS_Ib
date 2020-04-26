@@ -6,5 +6,5 @@ variable "name" {
   default = "ENG54-Sara-app-terraform"
 }
 variable "ami" {
-  default = "ami-013a43ff0cd941a50"
+  default = "ami-0e4e593700943cade"
 }

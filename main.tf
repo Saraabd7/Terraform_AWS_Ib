@@ -85,8 +85,16 @@ resource "aws_security_group" "app_security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["#34.250.111.74/32"] 
+    cidr_blocks = ["0.0.0.0/0"]
   }
+
+  ingress {
+  from_port = 27017
+  to_port =  27017
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -116,13 +124,29 @@ resource "aws_instance" "app_instance" {
     subnet_id = aws_subnet.app_subnet.id
     vpc_security_group_ids = [aws_security_group.app_security_group.id]
       key_name = "Sara-eng54"
-    user_data = data.template_file.app_init.rendered
+    # user_data = data.template_file.app_init.rendered
     tags = {
-      Name = "${var.name}-nodejs"
+      Name = "${var.name}-nodejs-tf"
     }
-  }
 
-  # send template sh file
+    provisioner "remote-exec" {
+    inline = [
+      "cd /home/ubuntu/app",
+      "sudo chown -R 1000:1000 '/home/ubuntu/.npm'",
+      "nodejs seeds/seed.js",
+      "npm start"
+    ]
+  }
+      connection {
+        type        = "ssh"
+        host        = self.public_ip
+        user        = "ubuntu"
+        private_key = "${file("~/.ssh/Sara-eng54.pem")}"
+      }
+
+
   data "template_file" "app_init" {
     template = "${file("./scripts/init_scripts.sh.tpl")}"
-  }
+    }
+
+   }
