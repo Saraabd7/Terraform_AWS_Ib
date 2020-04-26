@@ -145,8 +145,8 @@ resource "aws_instance" "app_instance" {
       }
 
 
-  data "template_file" "app_init" {
-    template = "${file("./scripts/init_scripts.sh.tpl")}"
-    }
+  # data "template_file" "app_init" {
+  #   template = "${file("./scripts/init_scripts.sh.tpl")}"
+  #   }
 
    }

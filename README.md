@@ -45,7 +45,7 @@ An AMI is a blue print (snap shot) of an instance:
  - Dynamical change the name ```terraform plan -var 'name=bob'```
 
  •• bob is the name that we are changing another example:: ```terraform plan -var 'name=long-name'```
- In our stack we have:
+ 
 
 
 ### Running scripts
@@ -66,10 +66,10 @@ An AMI is a blue print (snap shot) of an instance:
 
 ## Remote Exec
 
-remote exec which allows to run inline commands but will need to move over key pair to allow AWS to use it to ssh into the machine to run the command. provisioner "remote-exec" should assign self.public_ip to host inside connection block.
+remote-exec which allows to run inline commands but will need to move over key pair to allow AWS to use it to ssh into the machine to run the command. provisioner "remote-exec" should assign self.public_ip to host inside connection block.
 
 
-Using the key_name to specified and ip generated from the instance enter the machine by running the following code into the command line: ```ssh -i ~/.ssh/key_name ubuntu@xxx.xxx.xxx.xxx ```
+••• Using the key_name to specified and ip generated from the instance enter the machine by running the following code into the command line: ```ssh -i ~/.ssh/key_name ubuntu@xxx.xxx.xxx.xxx ```
 
 ```
 cd home/ubuntu/app
