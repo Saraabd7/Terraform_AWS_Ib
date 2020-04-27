@@ -22,6 +22,7 @@ Terraform  sit on the **Orchestration side**. This include the creation  of netw
 
 ••• ```Terraform destroy ```  To destroy all resources created by terraform.
 
+## AMI
 
 An AMI is a blue print (snap shot) of an instance:
  - The operating system
