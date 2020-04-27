@@ -5,6 +5,7 @@ variable "vpc_id" {
 variable "name" {
   default = "ENG54-Sara-app-terraform"
 }
+
 variable "ami" {
   default = "ami-0e4e593700943cade"
 }
