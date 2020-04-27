@@ -18,11 +18,3 @@ variable "gateway_id" {
 variable "my_name" {
   default = "This is my name Sara"
 }
-#
-# variable "pub_ip" {
-#   description = "the generated ip"
-# }
-#
-# variable "db_instance-ip" {
-#   description = "the ip of the db instance"
-# }

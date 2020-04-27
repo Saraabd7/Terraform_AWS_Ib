@@ -49,13 +49,17 @@ module "app" {
   ami    = var.ami
   gateway_id = aws_internet_gateway.gateway_id.id
   # gateway_id = data.aws_internet_gateway.default-gw.id
-
-
-
 }
 
 
-
+module "db" {
+  source = "./modules/db_tier/"
+  vpc_id = aws_vpc.app_vpc.id
+  name   = var.name
+  ami    = var.ami
+  gateway_id = aws_internet_gateway.gateway_id.id
+  # gateway_id = data.aws_internet_gateway.default-gw.id
+}
 # Notes:::
     # Inbound and outbound  rules for public subnet
 
