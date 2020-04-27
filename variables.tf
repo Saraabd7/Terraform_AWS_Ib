@@ -9,3 +9,8 @@ variable "name" {
 variable "ami" {
   default = "ami-0e4e593700943cade"
 }
+
+
+variable "ami_db" {
+  default = "ami-0e80b7bb139fb38a5"
+}

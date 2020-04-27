@@ -67,6 +67,14 @@ resource "aws_subnet" "app_subnet" {
         from_port  = 22
         to_port    = 22
       }
+      ingress {
+       protocol   = "tcp"
+       rule_no    = 150
+       action     = "allow"
+       cidr_block = "10.0.2.0/24"
+       from_port  = 27107
+       to_port    = 27107
+      }
 
       egress {
         protocol   = "tcp"
@@ -151,20 +159,6 @@ resource "aws_security_group" "app_security_group" {
   }
 }
 
-
-# Launching an instance
-resource "aws_instance" "app_instance" {
-    ami = var.ami
-    instance_type = "t2.micro"
-    associate_public_ip_address = true
-    subnet_id = aws_subnet.app_subnet.id
-    vpc_security_group_ids = [aws_security_group.app_security_group.id]
-      key_name = "Sara-eng54"
-    user_data = data.template_file.app_init.rendered
-    tags = {
-      Name = "${var.name}-nodejs-tf"
-    }
-}
 # Template for initial configuration bash script
   data "template_file" "app_init" {
       template = "${file("./scripts/app/init_scripts.sh.tpl")}"
@@ -174,6 +168,23 @@ resource "aws_instance" "app_instance" {
 vars = {
   my_name = "${var.my_name} is the real name Sara"
   }
+}
+# Launching an instance
+resource "aws_instance" "app_instance" {
+    ami = var.ami
+    instance_type = "t2.micro"
+    associate_public_ip_address = true
+    subnet_id = aws_subnet.app_subnet.id
+    vpc_security_group_ids = [aws_security_group.app_security_group.id]
+
+
+security_groups = [aws_security_group.app_security_group.id]
+   tags = {
+     Name = "${var.name}-tf"
+   }
+
+  key_name = "Sara-eng54"
+  user_data = data.template_file.app_init.rendered
 }
 # set ports
 # For the mongod db, setting private_IP for posts
