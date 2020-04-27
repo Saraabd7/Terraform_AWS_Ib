@@ -45,7 +45,7 @@ An AMI is a blue print (snap shot) of an instance:
  - Dynamical change the name ```terraform plan -var 'name=bob'```
 
  •• bob is the name that we are changing another example:: ```terraform plan -var 'name=long-name'```
- 
+
 
 
 ### Running scripts
@@ -57,9 +57,6 @@ An AMI is a blue print (snap shot) of an instance:
  ```
  data "template_file" "init" {
    template = "${file("${path.module}/init.tpl")}"
-   vars = {
-     consul_address = "${aws_instance.consul.private_ip}"
-   }
  }
 
  ```
@@ -73,7 +70,6 @@ remote-exec which allows to run inline commands but will need to move over key p
 
 ```
 cd home/ubuntu/app
-sudo npm install
 sudo npm start
 
 ```
