@@ -9,19 +9,9 @@ where Chef and packer sit more on the **configuration management** site and crea
 
 Terraform  sit on the **Orchestration side**. This include the creation  of networks and complex system and deploys AMIs.
 
-## Commands:
-
-```
-terraform init
-```
-```
-terraform plan
-```
-```
-terraform apply
-```
-
 ••• Terraform keep track things had change or not !!
+
+## Commands:
 
 ••• ``` Terraform plan ``` to contact aws >> validates the main.tf file to ensure the syntax is correct and no conflicts, as well as what it will try to do.
 
