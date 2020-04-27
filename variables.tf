@@ -1,9 +1,9 @@
-variable "vpc_id" {
-  default = "vpc-07e47e9d90d2076da"
-}
+# variable "vpc_id" {
+#   default = "vpc-07e47e9d90d2076da"
+# }
 
 variable "name" {
-  default = "ENG54-Sara-app-terraform"
+  default = "ENG54-Sara-terraform"
 }
 
 variable "ami" {

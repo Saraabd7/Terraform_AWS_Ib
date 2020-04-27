@@ -5,15 +5,12 @@ provider "aws" {
 }
 
 # Create a VPC ( app_vpc is the name of vpc that we gave)
-# resource "aws_vpc" "app_vpc" {
-#   cidr_block = "10.0.0.0/16"
-#   tags = {
-#     Name = "ENG-54-app_vpc"
-#   }
-# }
-
-
-
+resource "aws_vpc" "app_vpc" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "ENG-54-${var.name}-vpc"
+  }
+}
 
 # use our DevOps Vpc
     #vpc-07e47e9d90d2076da
@@ -24,22 +21,34 @@ provider "aws" {
 # we don't need a new Internet Gateway (IG)
 # we can query our exit vpc/infrastructure with the 'data' handler/function
 # Data allow us to get things in our terraform
-data "aws_internet_gateway" "default-gw"{
-  filter {
-    name = "attachment.vpc-id" # on the hashicorp docs, it referenc AWS-API thats has this filer " attachement"
-    values = [var.vpc_id]
+
+
+# we won't use this anymore because we used DevOPs VPC before
+# data "aws_internet_gateway" "default-gw"{
+#   filter {
+#     name = "attachment.vpc-id" # on the hashicorp docs, it referenc AWS-API thats has this filer " attachement"
+#     values = [var.vpc_id]
+#   }
+# }
+
+#Create Internet Gateway
+resource "aws_internet_gateway" "gateway_id" {
+  vpc_id = aws_vpc.app_vpc.id
+  tags = {
+    Name = "${var.name}-ig"
   }
 }
 
 
-# Call module to creat app_tier
+# Call module to creat app_tier with all the variables wev passed to it
 
 module "app" {
   source = "./modules/app_tier/"
-  vpc_id = var.vpc_id
+  vpc_id = aws_vpc.app_vpc.id
   name   = var.name
   ami    = var.ami
-  gateway_id = data.aws_internet_gateway.default-gw.id
+  gateway_id = aws_internet_gateway.gateway_id.id
+  # gateway_id = data.aws_internet_gateway.default-gw.id
 
 
 
