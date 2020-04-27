@@ -129,8 +129,9 @@ resource "aws_instance" "app_instance" {
       Name = "${var.name}-nodejs-tf"
     }
 }
+# Template for initial configuration bash script
   data "template_file" "app_init" {
-      template = "${file("./scripts/init_scripts.sh.tpl")}"
+      template = "${file("./scripts/app/init_scripts.sh.tpl")}"
       }
     #   connection {
     #     type        = "ssh"
