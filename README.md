@@ -48,7 +48,7 @@ An AMI is a blueprint (snapshot) of an instance:
 remote-exec which allows running inline commands but will need to move over key pair to allow AWS to use it to ssh into the machine to run the command. provisioner "remote-exec" should assign self.public_ip to host inside connection block.
 
 
-## Load app
+## To load app
 
 ••• Place the IP address generated from the instance in the browser xxx.xxx.xxx.xxx
 
