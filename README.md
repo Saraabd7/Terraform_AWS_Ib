@@ -58,9 +58,9 @@ cd home/ubuntu/app
 sudo npm start
 ```
 
-## 2-tier architecture
+##  Two-Tier Architecture
 
-••• This terraform code generated two instances, one instance contained the app (app_tier) and the other contained the database (db_tier).
+••• This terraform code generated two instances, one instance contained the app and the other contained the database.
 
 ••• Theses instances will be generated in AWS in the region eu-west-1, using AMI's (one which already has the app and dependencies installed onto it and the other has the database dependencies).
 
