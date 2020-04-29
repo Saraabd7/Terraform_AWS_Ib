@@ -19,6 +19,7 @@ Terraform sit on the **Orchestration side**. This includes the creation of netwo
 
 ••• ```Terraform destroy ```  To destroy all resources created by Terraform.
 
+
 ## AMI
 
 An AMI is a blueprint (snapshot) of an instance:
@@ -29,8 +30,8 @@ An AMI is a blueprint (snapshot) of an instance:
  - All packages and exact
 
 
-### Running Template File
 
+### Running Template File
 
  - To run template file (scripts): create a scripts folder and, create a scripts file in that repo. The filename would be {name}.sh.tpl.
 
@@ -40,6 +41,7 @@ An AMI is a blueprint (snapshot) of an instance:
  }
 
  ```
+
 
 ## Remote Exec
 
@@ -58,4 +60,8 @@ sudo npm start
 
 ## 2-tier architecture
 
-This terraform code generated two instances, one instance contained the app (app_tier) and the other contained the database (db_tier). Theses instances will be generated in AWS in the region eu-west-1, using AMI's (one which already has the app and dependencies installed onto it and the other has the database dependencies). It will create a VPC, subnets internet gateway, route table (with the association), NACLs and security groups.
+••• This terraform code generated two instances, one instance contained the app (app_tier) and the other contained the database (db_tier).
+
+••• Theses instances will be generated in AWS in the region eu-west-1, using AMI's (one which already has the app and dependencies installed onto it and the other has the database dependencies).
+
+••• It will create a VPC, subnets, internet gateway, route table (with the association), NACLs and security groups.
