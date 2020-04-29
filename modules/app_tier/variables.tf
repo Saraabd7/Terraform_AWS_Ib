@@ -18,3 +18,8 @@ variable "gateway_id" {
 variable "my_name" {
   default = "This is my name Sara"
 }
+
+
+variable "db_instance_ip" {
+  description = "ip of the db instance"
+}

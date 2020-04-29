@@ -14,3 +14,7 @@ variable "ami_db" {
 variable "gateway_id" {
   description = "The internet gateway id"
 }
+
+variable "app_security_group_id" {
+  description = "security group from app"
+}

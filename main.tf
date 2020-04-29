@@ -49,7 +49,7 @@ module "app" {
   ami    = var.ami
   gateway_id = aws_internet_gateway.gateway_id.id
   # gateway_id = data.aws_internet_gateway.default-gw.id
-
+   db_instance_ip = module.db.db_instance_ip
 }
 # call module to create db tier
 module "db" {
@@ -58,6 +58,7 @@ module "db" {
   name = var.name
   ami_db = var.ami_db
   gateway_id = aws_internet_gateway.gateway_id.id
+  app_security_group_id = module.app.app_security_group_id
 
 }
 

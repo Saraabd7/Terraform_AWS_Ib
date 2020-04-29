@@ -8,7 +8,7 @@
 #     tags = {
 #         Name = "ENG54-sara-subnet"
 # "172.31.0.0/24"
-#   }
+#   }app_security_group_id
 # }
 
 
@@ -167,6 +167,8 @@ resource "aws_security_group" "app_security_group" {
 # Making them dynamic.
 vars = {
   my_name = "${var.my_name} is the real name Sara"
+  db-ip = var.db_instance_ip
+
   }
 }
 # Launching an instance
@@ -178,7 +180,7 @@ resource "aws_instance" "app_instance" {
     vpc_security_group_ids = [aws_security_group.app_security_group.id]
 
 
-security_groups = [aws_security_group.app_security_group.id]
+   security_groups = [aws_security_group.app_security_group.id]
    tags = {
      Name = "${var.name}-tf"
    }
