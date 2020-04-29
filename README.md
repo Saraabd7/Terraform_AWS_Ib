@@ -31,7 +31,7 @@ An AMI is a blueprint (snapshot) of an instance:
 
 
 
-### Running Template File
+## Running Template File
 
  - To run template file (scripts): create a scripts folder and, create a scripts file in that repo. The filename would be {name}.sh.tpl.
 
