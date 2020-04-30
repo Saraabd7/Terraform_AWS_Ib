@@ -171,6 +171,8 @@ vars = {
 
   }
 }
+
+
 # Launching an instance
 resource "aws_instance" "app_instance" {
     ami = var.ami
@@ -188,6 +190,58 @@ resource "aws_instance" "app_instance" {
   key_name = "Sara-eng54"
   user_data = data.template_file.app_init.rendered
 }
+
+
+
+### Build Target Group and Load Balancer
+resource "aws_lb" "app_lb" {
+  name               = "Sara-tf-lb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = ["${aws_subnet.app_subnet.id}"]
+
+  enable_deletion_protection = false
+
+  tags = {
+    Name = "${var.name}-tf-lb"
+    Environment = "${var.name}-production"
+  }
+}
+
+
+resource "aws_lb_target_group" "LB_TargetGroup" {
+  name     = "Sara-tg-lb"
+  port     = 80
+  protocol = "TCP"
+  target_type = "instance"
+  vpc_id   = var.vpc_id
+
+}
+
+# listener rule
+resource "aws_lb_listener" "lb_litsener" {
+    load_balancer_arn = aws_lb.app_lb.arn
+    port              = 80
+    protocol          = "TCP"
+
+    default_action {
+      target_group_arn = aws_lb_target_group.LB_TargetGroup.arn
+      type             = "forward"
+    }
+}
+
+# Add the log token to a cloud-config that can be used by an
+# Application to send logs to Logentries
+
+resource "aws_launch_configuration" "app_launch_config" {
+  name_prefix     ="app_launch_config"
+  image_id        = var.ami
+  instance_type   ="t2.micro"
+  security_groups = [aws_security_group.app_security_group.id]
+  associate_public_ip_address = false
+  user_data = data.template_file.app_init.rendered
+}
+
 # set ports
 # For the mongod db, setting private_IP for posts
 # AWS give us new IPs -If we want to make one machine aware of another this could be
