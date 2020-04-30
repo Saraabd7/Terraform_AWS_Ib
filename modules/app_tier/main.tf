@@ -173,26 +173,6 @@ vars = {
 }
 
 
-# Launching an instance
-resource "aws_instance" "app_instance" {
-    ami = var.ami
-    instance_type = "t2.micro"
-    associate_public_ip_address = true
-    subnet_id = aws_subnet.app_subnet.id
-    vpc_security_group_ids = [aws_security_group.app_security_group.id]
-
-
-   security_groups = [aws_security_group.app_security_group.id]
-   tags = {
-     Name = "${var.name}-tf"
-   }
-
-  key_name = "Sara-eng54"
-  user_data = data.template_file.app_init.rendered
-}
-
-
-
 ### Build Target Group and Load Balancer
 resource "aws_lb" "app_lb" {
   name               = "Sara-tf-lb"
@@ -239,6 +219,24 @@ resource "aws_launch_configuration" "app_launch_config" {
   instance_type   ="t2.micro"
   security_groups = [aws_security_group.app_security_group.id]
   associate_public_ip_address = false
+  user_data = data.template_file.app_init.rendered
+}
+
+# Launching an instance
+resource "aws_instance" "app_instance" {
+    ami = var.ami
+    instance_type = "t2.micro"
+    associate_public_ip_address = true
+    subnet_id = aws_subnet.app_subnet.id
+    vpc_security_group_ids = [aws_security_group.app_security_group.id]
+
+
+   security_groups = [aws_security_group.app_security_group.id]
+   tags = {
+     Name = "${var.name}-tf"
+   }
+
+  key_name = "Sara-eng54"
   user_data = data.template_file.app_init.rendered
 }
 
